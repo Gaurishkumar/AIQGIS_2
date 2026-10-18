@@ -1,0 +1,10 @@
+worker/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+dist/
+data/batches/
+data/reference/*.parquet
+data/models/*.pt
+data/imagery/
+qgis_plugin/building_polygon_automation/bpa_common/

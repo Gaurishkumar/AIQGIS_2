@@ -1,0 +1,20 @@
+{
+ "overture_release": "synthetic",
+ "files": {
+  "buildings": {
+   "path": "overture_buildings.parquet",
+   "release": "synthetic",
+   "sha256": "ab50d65264b931700cbeb352bb4e9d9c3cc1b8a2e6cf3ca60e17899778ac25c4"
+  },
+  "segments": {
+   "path": "overture_segments.parquet",
+   "release": "synthetic",
+   "sha256": "674618c1439bd2ac7ffb56f7b71534ef0ac88f92985704c1ca1440abbe519feb"
+  },
+  "places": {
+   "path": "overture_places.parquet",
+   "release": "synthetic",
+   "sha256": "f44527447c5e78cca0c2dfb728ff561dd4b37f9e3f41ffbef4aaa22b4371ebb0"
+  }
+ }
+}

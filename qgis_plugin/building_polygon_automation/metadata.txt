@@ -1,0 +1,21 @@
+[general]
+name=Building Polygon Automation
+qgisMinimumVersion=3.44
+qgisMaximumVersion=4.99
+supportsQt6=True
+description=AI-assisted building polygon digitising: imports the survey Excel, proposes building polygons from footprints and licensed imagery (SAM 2.1 in a separate local worker), and lets operators review, fix and export.
+about=The plugin imports the client's survey workbook, sends the records to a local AI/GIS worker (127.0.0.1) that matches each survey point to a building (historic polygons and Overture footprints, scored by distance, name, address, road side, plausibility and source), refines it with SAM 2.1 when licence-approved imagery exists, validates and routes it. Proposals are real features in an editable GeoPackage; operators approve, edit, click-to-fix, pick another candidate, draw manually or reject, and export a copy of the workbook with corrected coordinates. The plugin itself never imports PyTorch.
+version=1.1.0
+author=AI Building Polygon Automation team
+email=noreply@example.com
+tracker=https://example.com/bpa/issues
+repository=https://example.com/bpa
+homepage=https://example.com/bpa
+category=Vector
+icon=icon.png
+experimental=False
+deprecated=False
+hasProcessingProvider=no
+tags=building,polygon,digitising,SAM,segmentation,footprint,review,excel
+changelog=1.1.0 Plain-language lanes (Sure / Check / Draw) and explanations; single-building entry (paste coordinates or a map link, or pick on the map); client imagery check and registration; customer outlet evidence; readable in the dark theme.
+  1.0.0 First MVP release (shadow-mode pilot)

@@ -1,0 +1,14 @@
+{
+  "files": {
+    "sam2.1_hiera_small.pt": {
+      "sha256": "6d1aa6f30de5c92224f8172114de081d104bbd23dd9dc5c58996f0cad5dc4d38",
+      "source": "https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_small.pt",
+      "licence": "Apache-2.0"
+    },
+    "sam2.1_hiera_base_plus.pt": {
+      "sha256": "a2345aede8715ab1d5d31b4a509fb160c5a4af1970f199d9054ccfb746c004c5",
+      "source": "https://dl.fbaipublicfiles.com/segment_anything_2/092824/sam2.1_hiera_base_plus.pt",
+      "licence": "Apache-2.0"
+    }
+  }
+}

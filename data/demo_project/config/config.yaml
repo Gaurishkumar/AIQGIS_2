@@ -1,0 +1,367 @@
+config_version: 2026.09-mvp.1
+project:
+  name: AI Building Polygon Automation
+  country_bounds:
+    min_lat: 6.0
+    max_lat: 37.6
+    min_lon: 68.0
+    max_lon: 97.5
+excel:
+  sheet_name: Sheet1
+  header_row: 1
+  columns:
+    survey_id: Survey ID
+    latitude: latitude
+    longitude: longitude
+    customer_name: Customer Name
+    building_name: Building Name
+    building_no: Building No
+    tower_block: Tower/Block
+    street: Street Name
+    sector: Sector/Phase
+    area: Area Name
+    landmark: Landmark
+    city: City
+    district: District Name
+    state: State Name
+    pincode: pincode
+    standard_address: Standard Building Address
+    building_type: Building Type
+    building_category: Building Category
+    building_height_m: Building Height(m)
+    floors: Floors
+  client_output_columns:
+    remark: Location coordinates change remark
+    corrected_latlon: Correct and Correeted Lat &long
+    operator_name: Name
+    status: Status
+    delivery_date: Delivery Date
+  column_aliases:
+    survey_id:
+    - Survey Id
+    - SurveyID
+    - Survey No
+    - Survey Number
+    - ID
+    latitude:
+    - lat
+    - Latitude
+    - Lat.
+    - Y
+    longitude:
+    - lon
+    - lng
+    - long
+    - Longitude
+    - Long.
+    - X
+    building_name:
+    - Building
+    - Bldg Name
+    - Name of Building
+    street:
+    - Street
+    - Road
+    - Road Name
+    pincode:
+    - Pin Code
+    - PIN
+    - Postal Code
+    - Pincode
+  control_columns:
+  - Don't Remove This Data
+  - Location coordinates change remark (2)
+  remarks:
+    unchanged: Existing client coordinates are accurate and no changes are required.
+    modified: Latitude and longitude have been modified based on GSM validation
+    adjusted_near: Client-provided coordinates were positioned near the existing building
+      location; hence GSM coordinates have been adjusted and updated accordingly
+  remark_rules:
+    unchanged_max_shift_m: 1.0
+    near_max_distance_m: 30.0
+  corrected_latlon_format: '{lat:.6f},{lon:.6f}'
+  status_values:
+    APPROVED: Completed
+    APPROVED_MANUAL: Completed
+    AUTO_ACCEPTED: Completed
+  delivery_date_format: DD-MM-YYYY
+  appended_columns:
+    corrected_latitude: Corrected Latitude
+    corrected_longitude: Corrected Longitude
+    polygon_id: Building Polygon ID
+    area_m2: Building Area (m2)
+    method: Detection Method
+    confidence: Detection Confidence
+    route: Route
+    review_status: Review Status
+    reviewer: Reviewer
+    reviewed_at: Reviewed At
+    exported_at: Exported At
+    coordinate_strategy: Corrected Coordinate Strategy
+    footprint_source: Footprint Source
+    imagery_source: Imagery Source
+    config_version: Config Version
+    model_version: Model Version
+    manifest_hash: Reference Manifest Hash
+reference:
+  dir: data/reference
+  files:
+    buildings: overture_buildings.parquet
+    segments: overture_segments.parquet
+    places: overture_places.parquet
+    addresses: null
+    historic: historic.gpkg
+    heights: heights.tif
+  verify_manifest: true
+  prepare:
+    margin_m: 1000
+    bbox_mode: clusters
+    cluster_link_m: 3000
+    types:
+    - building
+    - segment
+    - place
+    - address
+    coverage_margin_m: 300
+candidates:
+  search_radius_m: 50
+  radius_clamp_m:
+  - 25
+  - 100
+  dedup_iou: 0.5
+  max_candidates: 100
+scoring:
+  weights:
+    s_dist: 0.4
+    s_name: 0.2
+    s_addr: 0.1
+    s_road: 0.15
+    s_plaus: 0.1
+    s_source: 0.05
+  dist_decay_m: 15.0
+  name_places_within_m: 10.0
+  text_noise_floor: 0.6
+  text_ramp: true
+  addr_requires_street: true
+  addr_missing_value: 0.5
+  road_match_within_m: 20.0
+  road_point_ignore_m: 5.0
+  road_half_width_m:
+    motorway: 15
+    trunk: 12
+    primary: 10
+    secondary: 8
+    tertiary: 6
+    residential: 4
+    unclassified: 4
+    living_street: 3
+  road_name_match_threshold: 0.8
+  road_search_extra_m: 60.0
+  crossing_road_classes:
+  - motorway
+  - trunk
+  - primary
+  - secondary
+  - tertiary
+  - residential
+  - unclassified
+  - living_street
+  source_trust:
+    historic: 1.0
+    OpenStreetMap: 0.8
+    Esri Community Maps: 0.8
+    Microsoft ML Buildings: 0.6
+    Google Open Buildings: 0.6
+    default: 0.6
+  decision:
+    min_top_score: 0.7
+    min_margin: 0.15
+    historic_clear_distance_m: 5.0
+    on_road_min_name: 0.5
+  calibration_file: null
+text:
+  abbreviations:
+    apt: apartment
+    apts: apartments
+    appt: apartment
+    aptmt: apartment
+    bldg: building
+    bldgs: buildings
+    bld: building
+    soc: society
+    socy: society
+    chs: cooperative housing society
+    chsl: cooperative housing society limited
+    hsg: housing
+    coop: cooperative
+    co-op: cooperative
+    rd: road
+    marg: road
+    mg: mahatma gandhi
+    nr: near
+    opp: opposite
+    twr: tower
+    blk: block
+    sec: sector
+    ph: phase
+    compl: complex
+    cmplx: complex
+    ind: industrial
+    indl: industrial
+    est: estate
+    estt: estate
+    ltd: limited
+    pvt: private
+    ngr: nagar
+    e: east
+    w: west
+  generic_name_tokens:
+  - apartment
+  - apartments
+  - building
+  - buildings
+  - tower
+  - towers
+  - society
+  - cooperative
+  - housing
+  - limited
+  - private
+  - complex
+  - residency
+  - residence
+  - heights
+  - plaza
+  - the
+  - and
+  - of
+  - wing
+  - block
+  - plot
+  - false
+  - number
+  - unit
+  - shop
+  - flat
+  - floor
+  - co
+  - op
+  - sector
+  - phase
+  - estate
+  - industrial
+  - near
+  - opposite
+  - commercial
+  - bank
+  - atm
+  - branch
+  generic_street_tokens:
+  - road
+  - street
+  - lane
+  - path
+  - cross
+  - highway
+  - avenue
+  - way
+plausibility:
+  category_area_m2:
+    Residential Building:
+    - 40
+    - 6000
+    Commercial Complex:
+    - 80
+    - 20000
+    Community Centre:
+    - 50
+    - 8000
+    IT Park:
+    - 300
+    - 20000
+    default:
+    - 30
+    - 20000
+  min_area_per_floor_m2: 8.0
+  floor_height_m: 3.0
+  height_tolerance:
+    abs_m: 6.0
+    rel: 0.5
+  height_mismatch_factor: 0.5
+imagery:
+  providers:
+  - id: synthetic_ortho
+    type: local_raster
+    paths:
+    - data/imagery/ortho.tif
+    allow_automated_analysis: true
+    licence_ref: SYNTHETIC-TEST-001
+    capture_date: '2025-01-15'
+    priority: 1
+  crop:
+    buffer_m: 15.0
+    min_size_m: 60.0
+    enlarge_factor: 1.6
+    max_edge_retries: 1
+  max_gsd_m: 0.6
+  clustering_eps_m: 500.0
+segmentation:
+  backend: auto
+  model: sam2.1_hiera_base_plus
+  cpu_fallback_model: sam2.1_hiera_small
+  use_cpu_fallback: false
+  checkpoints_dir: C:\Users\dhana\Downloads\AIQGIS\data\models
+  device: auto
+  torch_threads: 0
+  positive_points: 3
+  interior_erosion_m: 2.0
+  box_pad_m: 2.0
+  embedding_cache_size: 16
+  variant_tie_tolerance: 0.02
+  auto_mask:
+    points_per_side: 16
+    min_area_m2: 20.0
+    max_area_m2: 20000.0
+    min_compactness: 0.35
+polygon:
+  min_hole_area_m2: 4.0
+  morph_open_px: 1
+  regularize: true
+  regularize_params:
+    simplify_px: 1.7
+    parallel_threshold: 1.0
+    allow_45_degree: true
+    diagonal_threshold_reduction: 15
+    allow_circles: false
+  simplify_pixel_factor: 0.5
+validation:
+  area_m2:
+  - 15.0
+  - 20000.0
+  edge_touch_px: 2
+  footprint_agreement_iou: 0.6
+  approved_overlap_ratio: 0.1
+  sliver_width_m: 1.0
+  sliver_loss_ratio: 0.15
+  sliver_min_length_m: 4.0
+confidence:
+  historic_identity_prob: 0.95
+  geometry_prior:
+    historic: 0.95
+    OpenStreetMap: 0.85
+    Esri Community Maps: 0.85
+    default: 0.75
+  flag_penalty: 0.85
+  calibration_file: null
+routing:
+  shadow_mode: true
+  auto_accept_enabled: false
+  t_auto: 0.9
+  audit_sample_rate: 0.05
+corrected_coordinate:
+  strategy: centroid_if_inside
+  decimals: 6
+  keep_original_if_inside: false
+worker:
+  host: 127.0.0.1
+  port: 8765

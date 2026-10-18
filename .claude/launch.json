@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "qa-map",
+      "runtimeExecutable": "C:\\Users\\dhana\\Downloads\\AIQGIS\\worker\\.venv\\Scripts\\python.exe",
+      "runtimeArgs": ["-m", "http.server", "8811", "--bind", "127.0.0.1", "--directory", "C:\\Users\\dhana\\Downloads\\AIQGIS\\data\\batches"],
+      "port": 8811
+    }
+  ]
+}
